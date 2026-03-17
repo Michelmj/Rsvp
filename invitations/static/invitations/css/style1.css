@@ -688,12 +688,6 @@ button {
     padding-top: clamp(120px, 25vw, 220px);
     padding-bottom: 40px;
   }
-
-  .stage-back,
-  .stage-rsvp {
-    
-  }
-
   .rsvp {
     width: min(60vw, 480px);
   }
