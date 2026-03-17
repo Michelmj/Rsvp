@@ -709,11 +709,23 @@ button {
   /* Flap text — wrap to two lines like desktop */
   .flap-text {
     font-size: 6.5vw;
-    width: 75%;
+    left: 0;
+    right: 0;
+    transform: translateY(0);
+    width: 100%;
     white-space: normal;
     overflow-wrap: break-word;
     line-height: 1.35;
     text-align: center;
+    padding: 0 10%;
+  }
+
+  .envelope-wrapper:not(.flap) .flap-text {
+    transform: translateY(0);
+  }
+
+  .envelope-wrapper.flap .flap-text {
+    transform: translateY(-12px);
   }
 
   /* Card open height — taller so content fits */
