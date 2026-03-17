@@ -11,15 +11,16 @@
   --txt-color: #444;
   --seal-ocean: rgb(252, 8, 231);
 
-  /* Fluid envelope — scales with viewport, capped at 500px */
-  --env-w: min(500px, 90vw);
-  --env-h: calc(var(--env-w) * 0.668);
+  /* Fluid envelope dimensions — always 90% of viewport, max 500px */
+  --env-w: min(500px, 88vw);
+  --env-h: calc(var(--env-w) * 0.668); /* preserves 500:334 ratio */
   --env-half: calc(var(--env-w) / 2);
-  --flap-h: calc(var(--env-h) * 0.703);
-  --card-w: calc(var(--env-w) * 0.80);
-  --card-bottom: calc(var(--env-h) * 0.246);
-  --seal-size: clamp(44px, 10vw, 80px);
+  --flap-h: calc(var(--env-h) * 0.704); /* preserves 235/334 ratio */
+  --card-w: calc(var(--env-w) * 0.80);  /* preserves 400/500 ratio */
+  --card-bottom: calc(var(--env-h) * 0.246); /* preserves 82/334 ratio */
+  --seal-size: calc(var(--env-w) * 0.16); /* preserves 80/500 ratio */
   --seal-bottom: calc(var(--env-h) * 0.24);
+  --card-open-h: calc(var(--env-w) * 1.06); /* preserves 530/500 ratio */
 }
 
 /* =============================================
@@ -45,7 +46,7 @@ body {
    ============================================= */
 .container {
   min-height: auto;
-  margin-top: clamp(20px, 5vw, 60px);
+  margin-top: clamp(40px, 8vw, 280px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,8 +66,8 @@ body {
   position: relative;
   align-items: center;
   justify-content: center;
-  padding-top: clamp(40px, 8vw, 80px);
-  padding-bottom: clamp(40px, 8vw, 80px);
+  padding-top: clamp(30px, 6vw, 250px);
+  padding-bottom: clamp(30px, 6vw, 60px);
   min-height: auto;
 }
 
@@ -89,18 +90,20 @@ body {
 
 /* =============================================
    ENVELOPE WRAPPER
+   — centered with margin:auto, no absolute top
    ============================================= */
 .envelope-wrapper {
   position: relative;
+  margin: 0 auto;
   width: var(--env-w);
   height: var(--env-h);
   filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.35));
   perspective: 1200px;
   transform-style: preserve-3d;
   z-index: 10;
-  margin: 0 auto;
 }
 
+/* Contact shadow */
 .envelope-wrapper::after {
   content: "";
   position: absolute;
@@ -133,6 +136,7 @@ body {
   border-radius: 6px;
 }
 
+/* Bottom triangle — fluid border widths */
 .envelope::after {
   content: ' ';
   position: absolute;
@@ -146,8 +150,12 @@ body {
   border-bottom: calc(var(--env-h) * 0.311) solid var(--envelope-cover);
   border-top: calc(var(--env-h) * 0.689) solid transparent;
   filter: drop-shadow(0 -6px 8px rgba(0, 0, 0, 0.35));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -3px 6px rgba(0,0,0,0.45);
 }
 
+/* Front diamond */
 .envelope-front-shape {
   position: absolute;
   inset: 0;
@@ -212,7 +220,7 @@ body {
 
 .envelope-wrapper.flap .invite-card {
   transform: translateX(-50%) translateY(2%);
-  height: clamp(280px, 80vw, 530px);
+  height: var(--card-open-h);
   overflow: hidden;
 }
 
@@ -221,9 +229,10 @@ body {
   overflow-y: hidden;
 }
 
+/* Card content */
 .card-inner {
   position: relative;
-  padding: clamp(14px, 3.5vw, 40px) clamp(10px, 2.5vw, 32px);
+  padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 32px);
   text-align: center;
   color: #24314f;
   font-family: "Playfair Display", cursive;
@@ -261,7 +270,7 @@ body {
 
 .card-name {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(16px, 5vw, 30px);
+  font-size: clamp(18px, 5.5vw, 30px);
   color: var(--env-navy);
   margin-bottom: clamp(4px, 1vw, 10px);
   line-height: 1.1;
@@ -289,7 +298,7 @@ body {
 }
 
 .card-date {
-  font-size: clamp(10px, 2.6vw, 19px);
+  font-size: clamp(11px, 2.6vw, 19px);
   font-weight: 600;
   color: var(--env-navy);
   margin-top: clamp(4px, 1vw, 9px);
@@ -298,7 +307,7 @@ body {
 
 .card-location {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(7px, 1.8vw, 13px);
+  font-size: clamp(8px, 1.8vw, 13px);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-top: clamp(2px, 0.8vw, 7px);
@@ -413,7 +422,7 @@ body {
 
 .seal-mark {
   font-family: cursive;
-  font-size: clamp(11px, 3.5vw, 24px);
+  font-size: clamp(10px, 3.5vw, 24px);
   font-weight: 600;
   color: #f3e6cf;
   letter-spacing: 2px;
@@ -468,7 +477,7 @@ body {
 
 .flap-curve-text {
   display: block;
-  width: clamp(140px, 45vw, 300px);
+  width: clamp(140px, 50vw, 300px);
   margin: 0 auto;
 }
 
@@ -572,11 +581,11 @@ body.lock-scroll {
 }
 
 .rsvp {
-  padding: clamp(32px, 7vw, 80px) clamp(10px, 4vw, 40px);
+  padding: clamp(32px, 7vw, 80px) clamp(12px, 5vw, 40px);
   background: #32233e;
   text-align: center;
   color: white;
-  border-radius: clamp(18px, 5vw, 40px);
+  border-radius: clamp(20px, 5vw, 40px);
   opacity: 0;
   transform: translateY(60px);
   transition: all 0.8s ease;
@@ -602,7 +611,7 @@ body.lock-scroll {
 
 .rsvp input,
 .choices {
-  width: min(75%, 300px);
+  width: clamp(200px, 70%, 300px);
   padding: clamp(8px, 2vw, 12px);
   margin: 8px 0;
   border-radius: 6px;
@@ -611,7 +620,7 @@ body.lock-scroll {
 }
 
 button {
-  padding: clamp(10px, 2.5vw, 14px) clamp(18px, 5vw, 30px);
+  padding: clamp(10px, 2.5vw, 14px) clamp(20px, 5vw, 30px);
   border: none;
   background: #800020;
   color: white;
@@ -657,12 +666,12 @@ button {
 }
 
 /* =============================================
-   LANDSCAPE PHONES (short screens)
+   LANDSCAPE PHONES (very short screens)
    ============================================= */
 @media (max-height: 500px) and (orientation: landscape) {
   .stage-envelope {
-    padding-top: clamp(20px, 5vh, 40px);
-    padding-bottom: clamp(20px, 5vh, 40px);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   .stage-back,
@@ -671,11 +680,11 @@ button {
   }
 
   .rsvp {
-    width: min(65vw, 480px);
+    width: min(60vw, 480px);
   }
 
   .rsvp input,
   .choices {
-    width: 78%;
+    width: 75%;
   }
 }
