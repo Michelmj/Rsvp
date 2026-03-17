@@ -12,7 +12,7 @@
   --seal-ocean: rgb(252, 8, 231);
 
   /* Fluid envelope — scales with viewport, capped at 500px */
-  --env-w: min(500px, 90vw);
+  --env-w: clamp(300px, 90vw, 500px); /*min(500px, 90vw); PREVIOUS CODE*/ 
   --env-h: calc(var(--env-w) * 0.668);
   --env-half: calc(var(--env-w) / 2);
   --flap-h: calc(var(--env-h) * 0.703);
@@ -38,6 +38,8 @@ body {
   padding: 0;
   background: #f3eee6;
   overflow-y: scroll;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* =============================================
@@ -249,7 +251,7 @@ body {
   margin-bottom: clamp(10px, 2.5vw, 26px);
 }
 
-.card-image img {
+/* .card-image img {
   width: 100%;
   max-width: 320px;
   height: clamp(70px, 16vw, 160px);
@@ -257,6 +259,15 @@ body {
   display: block;
   margin: 0 auto;
   border-radius: 6px;
+} */
+
+/* REPLACED ABOVE CODE */
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
 }
 
 .card-name {
@@ -679,3 +690,103 @@ button {
     width: 78%;
   }
 }
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .stage {
+    min-height: 25vh;
+  }
+
+  .stage-envelope {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .invite-card {
+    width: 92%;
+  }
+
+  .card-inner {
+    padding: 16px 12px;
+  }
+
+  .card-name {
+    font-size: clamp(18px, 6vw, 26px);
+  }
+
+  .rsvp {
+    width: 92%;
+    padding: 30px 16px;
+  }
+
+  .rsvp input,
+  .choices {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/* TABLETS/IPAD */
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+  .stage {
+    min-height: 30vh;
+  }
+
+  .invite-card {
+    width: 85%;
+  }
+
+  .card-inner {
+    padding: 24px 20px;
+  }
+
+  .rsvp {
+    width: 75%;
+  }
+
+  .rsvp input,
+  .choices {
+    width: 90%;
+  }
+}
+
+/* DESKTOP */
+
+@media (min-width: 1025px) {
+
+  .container {
+    margin-top: 80px;
+  }
+
+  .stage {
+    min-height: 40vh;
+  }
+
+  .invite-card {
+    width: 70%;
+    max-width: 520px;
+  }
+
+  .rsvp {
+    width: 420px;
+  }
+
+  .rsvp input,
+  .choices {
+    width: 85%;
+  }
+}
+
+button,
+.envelope-wrapper {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
