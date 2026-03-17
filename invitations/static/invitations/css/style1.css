@@ -488,7 +488,8 @@ body {
 
 .flap-curve-text {
   display: block;
-  width: clamp(140px, 50vw, 300px);
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
 
