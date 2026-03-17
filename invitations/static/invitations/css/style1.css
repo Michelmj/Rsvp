@@ -235,7 +235,7 @@ body {
 }
 
 .envelope-wrapper.flap .invite-card {
-  transform: translateX(-50%) translateY(2%);
+  transform: translateX(-50%) translateY(-30%);
   height: var(--card-open-h);
   overflow: hidden;
 }
