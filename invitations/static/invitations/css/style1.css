@@ -11,7 +11,6 @@
   --txt-color: #444;
   --seal-ocean: rgb(252, 8, 231);
 
-  /* Fluid envelope dimensions — always 88% of viewport, max 500px */
   --env-w: min(500px, 88vw);
   --env-h: calc(var(--env-w) * 0.668);
   --env-half: calc(var(--env-w) / 2);
@@ -67,7 +66,6 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  /* Large top padding gives the card space to open upward */
   padding-top: clamp(220px, 40vw, 500px);
   padding-bottom: clamp(60px, 10vw, 100px);
   min-height: auto;
@@ -91,27 +89,32 @@ body {
 }
 
 /* =============================================
-   ENVELOPE WRAPPER
-   — uses perspective-container trick to prevent
-     left shift during 3D flap animation
+   PERSPECTIVE CONTAINER
+   — perspective is set HERE on the parent,
+     not on .envelope-wrapper, to prevent the
+     browser left-shift bug during 3D animation
    ============================================= */
+.perspective-container {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  width: var(--env-w);
+  height: var(--env-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* Outer centering wrapper — no perspective here */
+/* =============================================
+   ENVELOPE WRAPPER
+   — transform-style only, no perspective here
+   ============================================= */
 .envelope-wrapper {
   position: relative;
   width: var(--env-w);
   height: var(--env-h);
-  margin: 0 auto;
   filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.35));
-  /* perspective must NOT be on the same element as transform-style */
-  /* to avoid the left-shift bug — move it to a pseudo or child */
-  z-index: 10;
   transform-style: preserve-3d;
-  perspective: 1200px;
-  /* Force GPU compositing to lock position */
-  will-change: transform;
-  /* Prevent layout shift by locking left edge */
-  left: 0;
+  z-index: 10;
 }
 
 /* Contact shadow */
@@ -241,7 +244,6 @@ body {
   overflow-y: hidden;
 }
 
-/* Card content */
 .card-inner {
   position: relative;
   padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 32px);
@@ -678,7 +680,7 @@ button {
 }
 
 /* =============================================
-   LANDSCAPE PHONES (very short screens)
+   LANDSCAPE PHONES
    ============================================= */
 @media (max-height: 500px) and (orientation: landscape) {
   .stage-envelope {

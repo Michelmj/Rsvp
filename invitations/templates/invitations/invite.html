@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Mario & Sephora </title>
+  <title> J & J </title>
   <link rel="stylesheet" href="{% static 'invitations/css/style1.css' %}">
 </head>
 <body>
@@ -13,63 +13,60 @@
     <!-- PHASE 0: ENVELOPE INTRO -->
 
     <div class="stage stage-envelope">
-      <div class="envelope-wrapper">
-        <div class="floral florals-left"></div>
-        <div class="floral florals-right"></div>
-        
-        <div class="envelope">
+      <!-- perspective-container: perspective lives here, NOT on envelope-wrapper -->
+      <!-- this prevents the left-shift bug during the 3D flap animation -->
+      <div class="perspective-container">
+        <div class="envelope-wrapper">
+          <div class="floral florals-left"></div>
+          <div class="floral florals-right"></div>
+          
+          <div class="envelope">
 
-          <div class="envelope-front-shape"></div>
-          <div class="envelope-front-bottom"></div>
+            <div class="envelope-front-shape"></div>
+            <div class="envelope-front-bottom"></div>
 
-          <div class="flap">
-            <div class="flap-front">
-              <div class="flap-text countdown">
-                The Countdown Begins
-                <svg class="flap-curve-text countdown" viewBox="0 0 300 120">
-                  <path id="flapPath" d="M 30 90 Q 150 20 270 90" fill="transparent"/>
-                  <text>
-                    <textPath href="#flapPath" startOffset="50%" text-anchor="middle">
-                    </textPath>
-                  </text>
-                </svg>
-              </div>
-            </div>
-
-            <div class="flap-back"></div>
-          </div>
-  
-
-         <!-- <div class="flap-image"></div> -->
-
-          <div class="envelope-front"></div>
-
-          <div class="envelope-inside">
-            <div class="invite-card">
-              <div class="card-inner">
-                <div class="card-title"> SAVE the DATE </div>
-                <div class="card-image">
-                  <img src="{% static 'invitations/images/Tuckahoe_Boat.jpg' %}" alt="Venue">
+            <div class="flap">
+              <div class="flap-front">
+                <div class="flap-text countdown">
+                  The Countdown Begins
+                  <svg class="flap-curve-text countdown" viewBox="0 0 300 120">
+                    <path id="flapPath" d="M 30 90 Q 150 20 270 90" fill="transparent"/>
+                    <text>
+                      <textPath href="#flapPath" startOffset="50%" text-anchor="middle">
+                      </textPath>
+                    </text>
+                  </svg>
                 </div>
-                <div class="card-name"> Sephora & Mario </div>
-                <div class="card-divider"> * </div>
-                <div class="card-date"> 12 November, 2026 </div>
-                <div class="card-location"> Jensen Beach, Florida </div>
+              </div>
+
+              <div class="flap-back"></div>
+            </div>
+
+            <!-- <div class="flap-image"></div> -->
+
+            <div class="envelope-front"></div>
+
+            <div class="envelope-inside">
+              <div class="invite-card">
+                <div class="card-inner">
+                  <div class="card-title"> SAVE the DATE </div>
+                  <div class="card-image">
+                    <img src="{% static 'invitations/images/Tuckahoe_Boat.jpg' %}" alt="Venue">
+                  </div>
+                  <div class="card-name"> Sephora & Mario </div>
+                  <div class="card-divider"> * </div>
+                  <div class="card-date"> 12 November, 2026 </div>
+                  <div class="card-location"> Jensen Beach, Florida </div>
+                </div>
               </div>
             </div>
+
+            <!-- Create Wax-Seal -->
+            <div class="wax-seal">
+              <span class="seal-mark"> S&M </span>
+            </div>
+
           </div>
-
-        <!-- Insert Images -->
-          <!--<div class="image01">
-            <img src="Tuckahoe_back.jpg"> 
-          </div> -->
-
-        <!-- Create Wax-Seal -->
-
-          <div class="wax-seal"> <!-- This is the seal on top of the flap -->
-            <span class="seal-mark"> S&M </span>
-          </div>
-
         </div>
       </div>
     </div>
@@ -81,12 +78,12 @@
       </div>
     </div>
 
-     <!-- PHASE 3: RSVP CARD -->
+    <!-- PHASE 3: RSVP CARD -->
     <div class="stage stage-rsvp">
       <section class="rsvp">
         
         {% if messages %}
-          <div class = "message-box">
+          <div class="message-box">
             {% for message in messages %}
               <p class="error-message">{{ message }}</p>
             {% endfor %}
@@ -97,35 +94,24 @@
         <p> Help Us Plan Ahead </p>
         <p class="rsvp-question"> Will you attend?</p>
 
-          {% if messages %}
-          <div class = "message-box">
-            {% for message in messages %}
-              <p style="color: red; text-align: center:">
-                {{ message }}
-              </p>
-            {% endfor %}
-          </div>
-        {% endif %}
-
-        <form method="POST" action = "{% url "invited" %}">
+        <form method="POST" action="{% url "invited" %}">
           {% csrf_token %}
 
           <input type="text" name="name" placeholder="Full Name" required>
-          <input type "text" id="name" name = "spouse_name" placeholder="Spouse's name">
+          <input type="text" id="name" name="spouse_name" placeholder="Spouse's name">
           <input type="email" name="email" placeholder="Email Address" required>
           <input type="text" name="number" placeholder="Phone Number">
 
           <select class="choices" name="response" required>
-            <option value="" disabled selected >Select your response</option>
+            <option value="" disabled selected>Select your response</option>
             <option value="accepts">Joyfully Accepts</option>
             <option value="declines">Regretfully Declines</option>
           </select> 
 
           <button type="submit">Send RSVP</button>
         </form>
-      <p class="deadline-text"> Please submit by 15 June, 2026 </p>
+        <p class="deadline-text"> Please submit by 15 June, 2026 </p>
       </section>
-    
 
     </div>  
   </div>
@@ -133,4 +119,4 @@
   <script src="{% static 'invitations/js/invite.js' %}"></script>
 
 </body>
-</html> 
+</html>
