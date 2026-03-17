@@ -467,18 +467,24 @@ body {
 .flap-text {
   position: absolute;
   bottom: -10%;
-  left: 50%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0 8%;
   transform-origin: center top;
   font-family: cursive;
   font-size: clamp(16px, 5vw, 35px);
   font-weight: 600;
   color: #fff;
   text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.35;
   pointer-events: none;
   z-index: 4;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-12px);
+  transform: translateY(-12px);
   transition:
     opacity 0.4s ease,
     transform 0.4s ease,
@@ -494,14 +500,14 @@ body {
 .envelope-wrapper:not(.flap) .flap-text {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
   transition-delay: 4.7s;
 }
 
 .envelope-wrapper.flap .flap-text {
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(-12px);
+  transform: translateY(-12px);
   transition-delay: 0s;
 }
 
@@ -720,13 +726,7 @@ button {
     padding: 0 10%;
   }
 
-  .envelope-wrapper:not(.flap) .flap-text {
-    transform: translateY(0);
-  }
 
-  .envelope-wrapper.flap .flap-text {
-    transform: translateY(-12px);
-  }
 
   /* Card open height — taller so content fits */
   .envelope-wrapper.flap .invite-card {
