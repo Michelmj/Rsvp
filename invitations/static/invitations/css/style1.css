@@ -66,8 +66,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: clamp(220px, 40vw, 500px);
-  padding-bottom: clamp(60px, 10vw, 100px);
+  padding-top: 0;
+  padding-bottom: 0;
   min-height: 100vh;
 }
 
@@ -475,7 +475,10 @@ body {
   left: 50%;
   transform-origin: center top;
   font-family: cursive;
-  font-size: clamp(16px, 5vw, 35px);
+  font-size: clamp(14px, 3.5vw, 35px);
+  white-space: normal;
+  word-break: break-word;
+  width: clamp(140px, 50vw, 300px);
   font-weight: 600;
   color: #fff;
   text-align: center;
