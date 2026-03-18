@@ -19,7 +19,7 @@
   --card-bottom: calc(var(--env-h) * 0.246);
   --seal-size: calc(var(--env-w) * 0.16);
   --seal-bottom: calc(var(--env-h) * 0.24);
-  --card-open-h: calc(var(--env-w) * 1.0);
+  --card-open-h: calc(var(--env-w) * 1.1);
 }
 
 /* =============================================
