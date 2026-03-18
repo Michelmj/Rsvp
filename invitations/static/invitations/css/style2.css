@@ -1,4 +1,3 @@
-
 /* =============================================
    ROOT VARIABLES
    ============================================= */
@@ -20,7 +19,7 @@
   --card-bottom: calc(var(--env-h) * 0.246);
   --seal-size: calc(var(--env-w) * 0.16);
   --seal-bottom: calc(var(--env-h) * 0.24);
-  --card-open-h: calc(var(--env-w) * 1.06);
+  --card-open-h: calc(var(--env-w) * 0.85);
 }
 
 /* =============================================
@@ -68,8 +67,8 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: clamp(60px, 10vh, 120px);
+  padding-bottom: clamp(60px, 10vh, 120px);
 }
 
 .stage-back,
