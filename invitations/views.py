@@ -46,7 +46,7 @@ Email: {email}
 Response: {response}
 """,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=['phi.jim@hotmail.com'],
+            recipient_list=['seph.n.mario@gmail.com'],
             fail_silently=False,
         )
 
