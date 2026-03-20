@@ -17,7 +17,7 @@ def append_to_google_sheet(name, spouse, email, number, response):
     client = gspread.authorize(creds)
 
     # Open the sheet
-    sheet = client.open("SephoMario").worksheet("rsvp")
+    sheet = client.open("SephoMario").worksheet("RSVP")
 
     # Append the row
     sheet.append_row([name, spouse, email, number, response])
