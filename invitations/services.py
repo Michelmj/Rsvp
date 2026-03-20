@@ -4,7 +4,7 @@ from django.conf import settings
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-def append_to_google_sheet(name, email, number, response):
+def append_to_google_sheet(name, spouse, email, number, response):
     # Setup credentials
     scope = ["https://spreadsheets.google.com"]
     
