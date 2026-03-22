@@ -22,7 +22,6 @@ def send_email(to_email, subject, body):
 
 
 def home(request):
-    # If already submitted, redirect to thank you page
     if request.session.get('rsvp_submitted'):
         return redirect('thank_you')
     return render(request, 'invitations/invite.html')
@@ -31,7 +30,6 @@ def home(request):
 def invited(request):
     if request.method == 'POST':
 
-        # Check session first
         if request.session.get('rsvp_submitted'):
             return redirect('thank_you')
 
@@ -54,17 +52,14 @@ def invited(request):
             messages.error(request, "An RSVP has already been submitted with this email address.")
             return redirect('home')
 
-        # Mark as submitted in session
         request.session['rsvp_submitted'] = True
-        request.session.set_expiry(0)  # expires when browser closes
+        request.session.set_expiry(0)
 
-        # Save to Google Sheet
         try:
             append_to_google_sheet(name, spouse, email, number, response)
         except Exception as e:
             print(f"Google Sheets error: {e}")
 
-        # Email to you
         send_email(
             to_email='seph.n.mario@gmail.com',
             subject='New RSVP Submission',
@@ -79,7 +74,6 @@ Response: {response}
 """
         )
 
-        # Thank-you email to guest
         send_email(
             to_email=email,
             subject='Thank You for Your RSVP',
@@ -100,8 +94,12 @@ Sephora & Mario
 
 
 def thank_you(request):
-    # Get all guests who accepted, ordered by submission date
     accepted_guests = rsvp.objects.filter(response='accepts').order_by('submittedat')
+
+    # Count total people (guest + spouse if they have one)
+    total_people = sum(2 if guest.spouse_name else 1 for guest in accepted_guests)
+
     return render(request, 'invitations/thank_you.html', {
-        'accepted_guests': accepted_guests
+        'accepted_guests': accepted_guests,
+        'total_people': total_people,
     })

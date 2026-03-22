@@ -177,7 +177,7 @@
             </li>
           {% endfor %}
         </ul>
-        <p class="guest-count">{{ accepted_guests|length }} guest{{ accepted_guests|length|pluralize }} attending so far</p>
+        <p class="guest-count">{{ total_people }} person{{ total_people|pluralize }} attending so far</p>
       {% endif %}
 
       <a href="{% url 'home' %}" class="back-link">← Back to Invitation</a>
