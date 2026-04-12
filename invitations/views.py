@@ -47,6 +47,10 @@ def invited(request):
         if rsvp.objects.filter(number=number).exists():
             messages.error(request, "An RSVP has already been submitted with this phone number.")
             return redirect('home')
+        
+        if rsvp.objects.filter(name=name).exists():
+            messages.error(request, "An RSVP has already been submitted with this phone number.")
+            return redirect('home')
 
         try:
             rsvp.objects.create(
